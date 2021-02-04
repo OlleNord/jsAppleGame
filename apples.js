@@ -1,10 +1,18 @@
 c = document.getElementById("c");
-c.style = "position: relative; text-align: center;"
+HEIGHT = window.innerHeight;
+WIDTH = window.innerWidth;
+c.height = HEIGHT;
+c.width = WIDTH;
 ctx = c.getContext("2d");
+
 window.addEventListener("mousemove", function(e) {
-	padx = e.clientX - 200;
-	Paddle.x = Clamp(padx, -11, 1500)
+	padx = e.clientX-150;
+	Paddle.x = Clamp(padx, 0, WIDTH-Paddle.w)
 });
+
+var lifes = 3;
+var score = 10;
+
 function Clamp(varr, n1, n2) {
 	if (varr < n1) {
 		varr = n1;
@@ -47,11 +55,13 @@ class Apple {
 		if (Paddle.y-this.r < this.y && this.x+this.r > Paddle.x && this.x-this.r < Paddle.x+Paddle.w) {
 			this.y = -100;
 			this.vel = 0;
+			score++;
 			return true;
-		} else if (this.y > 1200) {
+		} else if (this.y > HEIGHT+this.r) {
 			this.y = -100;
 			this.vel = 0;
-			return true;
+			lifes--;
+			return true;	
 		}
 		
 	}
@@ -63,6 +73,10 @@ function Start() {
 }
 function Update() {
 	ctx.clearRect(0, 0, c.width, c.height);
+	ctx.font = "20px Georgia";
+	ctx.fillText("Lifes: " + lifes, 10, 20);
+	ctx.fillText("Score: " + score, 10, 40);
+	ctx.fillText("High-Score: " + score, 10, 60);
 	for (let i = 0; i < Apples.length; i++) {
 		Apples[i].fall();
 		Apples[i].draw();
@@ -78,6 +92,6 @@ function Update() {
 function SpawnApples() {
 	let i = 0;
 	i++;
-	Apples.push(new Apple(Math.floor(Math.random() * 1800), 0, (Math.random()*30)+20, (Math.random()*3)+1, "Apple "+(i+1)));
+	Apples.push(new Apple(Math.floor(Math.random() * WIDTH), 0, (Math.random()*30)+20, (Math.random()*3)+1, "Apple "+(i+1)));
 }
 Start();
