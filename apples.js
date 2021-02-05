@@ -6,12 +6,13 @@ c.width = WIDTH;
 ctx = c.getContext("2d");
 
 window.addEventListener("mousemove", function(e) {
-	padx = e.clientX-150;
+	padx = e.clientX-(Paddle.w);
 	Paddle.x = Clamp(padx, 0, WIDTH-Paddle.w)
 });
 
 var lifes = 3;
 var score = 0;
+var highscore = localStorage.getItem("highscore");
 
 function Clamp(varr, n1, n2) {
 	if (varr < n1) {
@@ -26,7 +27,7 @@ var Apples = [];
 var Paddle = {
 	x: c.width/2-150,
 	y: HEIGHT-100,
-	w: 300,
+	w: WIDTH/10,
 	h: 40
 };
 class Apple {
@@ -66,17 +67,21 @@ class Apple {
 		
 	}
 }
+var upd = setInterval("Update()", 10)
 
-function Start() {
-	setInterval("Update()", 10)
-	setInterval("SpawnApples()", 700)
-}
+var spw = setInterval("SpawnApples()", 700)
+var gov;
 function Update() {
+	if (lifes < 1) {
+		clearInterval(upd);
+		var gov = setInterval("Gameover()", 2000);
+	}
 	ctx.clearRect(0, 0, c.width, c.height);
+	
 	ctx.font = "20px Georgia";
 	ctx.fillText("Lifes: " + lifes, 10, 20);
 	ctx.fillText("Score: " + score, 10, 40);
-	ctx.fillText("High-Score: " + score, 10, 60);
+	ctx.fillText("High-Score: " + highscore, 10, 60);
 	for (let i = 0; i < Apples.length; i++) {
 		Apples[i].fall();
 		Apples[i].draw();
@@ -94,4 +99,14 @@ function SpawnApples() {
 	i++;
 	Apples.push(new Apple(Math.floor(Math.random() * WIDTH), 0, (Math.random()*30)+20, (Math.random()*3)+1, "Apple "+(i+1)));
 }
-Start();
+function Gameover() {
+	if (score > highscore) {
+		highscore = score;
+		localStorage.setItem("highscore", highscore);
+	}
+	ctx.clearRect(0, 0, c.width, c.height);
+	ctx.font = "100px Georgia";
+	ctx.fillText("Score: " + score, 10, HEIGHT-(HEIGHT/3));
+	ctx.fillText("High-Score: " + localStorage.getItem("highscore"), 10, HEIGHT-(HEIGHT/4));
+	clearInterval(gov);
+}
