@@ -11,7 +11,7 @@ window.addEventListener("mousemove", function(e) {
 });
 
 var lifes = 3;
-var score = 10;
+var score = 0;
 
 function Clamp(varr, n1, n2) {
 	if (varr < n1) {
@@ -25,7 +25,7 @@ function Clamp(varr, n1, n2) {
 var Apples = [];
 var Paddle = {
 	x: c.width/2-150,
-	y: 800,
+	y: HEIGHT-100,
 	w: 300,
 	h: 40
 };
