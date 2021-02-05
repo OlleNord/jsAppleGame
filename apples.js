@@ -1,6 +1,6 @@
 c = document.getElementById("c");
-HEIGHT = window.innerHeight;
-WIDTH = window.innerWidth;
+HEIGHT = window.innerHeight-(window.innerHeight/10);
+WIDTH = window.innerWidth-(window.innerWidth/10);
 c.height = HEIGHT;
 c.width = WIDTH;
 ctx = c.getContext("2d");
