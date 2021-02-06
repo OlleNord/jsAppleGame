@@ -9,6 +9,11 @@ window.addEventListener("mousemove", function(e) {
 	padx = e.clientX-(Paddle.w);
 	Paddle.x = Clamp(padx, 0, WIDTH-Paddle.w)
 });
+window.addEventListener("touchstart", function(e) {
+	console.log(e.touches);
+	/* padx = e.clientX-(Paddle.w);
+	Paddle.x = Clamp(padx, 0, WIDTH-Paddle.w) */
+});
 
 var lifes = 3;
 var score = 0;
@@ -87,8 +92,6 @@ function Update() {
 		Apples[i].draw();
 		if (Apples[i].collision()) {
 			Apples.splice(i, 1);
-			console.log("Collision" + i);
-			console.log(Apples);
 		}
 	}
 	ctx.fillStyle = "black";
