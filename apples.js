@@ -14,7 +14,7 @@ window.addEventListener("touchstart", function(e) {
 	console.log(e);
 	padx = e.clientX-(Paddle.w);
 	Paddle.x = Clamp(padx, 0, WIDTH-Paddle.w);
-	ctx.fillText(Paddle.x);
+	ctx.fillText(Paddle.x, 200, 200);
 	/* padx = e.clientX-(Paddle.w);
 	Paddle.x = Clamp(padx, 0, WIDTH-Paddle.w) */
 });
