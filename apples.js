@@ -11,6 +11,9 @@ window.addEventListener("mousemove", function(e) {
 });
 window.addEventListener("touchstart", function(e) {
 	console.log(e.touches);
+	console.log(e);
+	padx = e.clientx-(Paddle.w);
+	Paddle.x = Clamp(padx, 0, WIDTH-Paddle.w)
 	/* padx = e.clientX-(Paddle.w);
 	Paddle.x = Clamp(padx, 0, WIDTH-Paddle.w) */
 });
