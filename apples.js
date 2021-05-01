@@ -15,6 +15,7 @@ c.addEventListener("touchstart", function(e) {
 	padx = e.clientX-(Paddle.w);
 	Paddle.x = Clamp(padx, 0, WIDTH-Paddle.w);
 	ctx.fillText(Paddle.x, 200, 200);
+	ctx.fillText(e, 200, 600);
 	/* padx = e.clientX-(Paddle.w);
 	Paddle.x = Clamp(padx, 0, WIDTH-Paddle.w) */
 });
