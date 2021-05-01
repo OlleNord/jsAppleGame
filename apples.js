@@ -9,7 +9,7 @@ window.addEventListener("mousemove", function(e) {
 	padx = e.clientX-(Paddle.w);
 	Paddle.x = Clamp(padx, 0, WIDTH-Paddle.w)
 });
-window.addEventListener("touchstart", function(e) {
+c.addEventListener("touchstart", function(e) {
 	console.log(e.touches);
 	console.log(e);
 	padx = e.clientX-(Paddle.w);
